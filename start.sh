@@ -3,7 +3,13 @@ HOME_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 source "$HOME_DIR"/print.sh
 
 # minikube setup
-minikube start --vm=true
+read -erp "Allocate minikube memory[2048(MB)]: " minikube_memory
+minikube_memory=${minikube_memory:-2048}
+read -erp "Allocate minikube cpu[2]: " minikube_cpus
+minikube_cpus=${minikube_cpus:-2}
+print "Trying to allocate $minikube_memory MB memory and $minikube_cpus CPUs for minikube.\nMake sure you have enough docker resources!"
+
+minikube start --memory "$minikube_memory" --cpus "$minikube_cpus"
 
 # go to Postfacto directory
 git clone https://github.com/pivotal/postfacto.git "$HOME_DIR"/postfacto
@@ -40,6 +46,3 @@ kubectl get pods
 
 # expose
 kubectl port-forward service/app-postfacto 8080:80 &
-
-# run localtunnel
-npx localtunnel --port 8080

@@ -6,7 +6,7 @@ This allows you to run Postfacto instantly on your local and expose the service 
 
 - Docker, Kubernetes, Helm
 - Minikube
-- Localtunnel
+- Localtunnel / ngrok
 
 ## Run
 
@@ -15,6 +15,7 @@ sh run.sh
 ```
 
 * Warning: make sure you are looking at the correct Kubernetes context.
+* Run localtunnel or ngrok after the app is ready on localhost:8080
 
 ### Options
 
